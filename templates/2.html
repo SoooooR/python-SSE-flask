@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSE Example</title>
+</head>
+<body>
+    <h1>Server-Sent Events Example</h1>
+    <div id="events">
+        <textarea id="dat" cols="120" rows="10"></textarea>
+    </div>
+
+    <script>
+        const content = document.getElementById('dat');
+        document.getElementById("events").addEventListener("keydown", function(event) {
+            if (event.keyCode === 13) { // 按下回车键的键码是13
+                event.preventDefault(); // 阻止回车键的默认行为
+                var eventSource = new EventSource('/sse1');
+                eventSource.onmessage = function(event) {
+                    var data = JSON.parse(event.data);
+                    content.innerHTML += data;
+                    if (data.endsWith(' ')) {
+                          // 如果是，则断开连接
+                          eventSource.close();
+                    }
+
+                };
+            }
+
+        });
+    </script>
+</body>
+</html>
