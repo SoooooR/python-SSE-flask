@@ -1,1 +1,2 @@
-# python-SSE-flask
+# python-SSE-flask  
+a easy SSE usage  
